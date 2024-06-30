@@ -1,135 +1,80 @@
+/* General Body Styles */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'DIN Next', sans-serif;
-    background-color: rgb(20, 31, 35);
-    color: #fff;
+    font-family: "AppleSystemUIFont", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 700;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 1032px; 
+    background-color: rgb(25, 25, 25);
+    margin: 0;
+    color: rgb(99, 96, 100);
 }
 
 .container {
-    width: 100%;
-    max-width: 450px;
+    text-align: center;
+    width: 294px; 
+    margin: auto;
 }
 
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    margin-bottom: -50px;
-    padding: 20px;
-}
-
-.header-content {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.header p {
-    margin: 0;
-    margin-bottom: -10px;
-    font-size: 1em; /* Adjust the font size as needed */
-    font-family: 'DIN Next', sans-serif; /* Adjust the font family */
-    color: #be48e4;
-}
-
-.main-content {
-    padding: 20px;
-}
-
-.instruction {
-    font-size: 1.7em;
-    font-family: 'DIN Next', sans-serif; /* Adjust the font family */
-    font-weight: bold; /* Adjust the font weight */
-    text-align: left;
-    margin-top: 20px; /* Adjust as needed */
-}
-
-.question {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-.spanish-text {
-    font-size: 1.2em;
-    display: inline-block;
-    outline: 3px solid rgb(55, 70, 79);
-    padding: 10px;
-    border-radius: 8px;
-    max-width: 100%;
-}
-
-.spanish-text .highlight {
-    color: #be48e4;
-    text-decoration: underline;
-}
-
-.audio-icon {
-    width: 25px;
-    height: auto;
-    margin-right: 5px;
-    filter: invert(29%) sepia(83%) saturate(6232%) hue-rotate(180deg) brightness(130%) contrast(105%);
-}
-
-.input-area {
-    display: flex;
-    flex-direction: column;
-    gap: 60px;
-    margin: 45px 0;
-}
-
-.input-line {
-    position: relative;
-    height: 2px;
-    background-color: #4f5863;
-    width: 100%;
-    margin: 1px auto; /* Adjusted margin for spacing */
-}
-
-.words.origin {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
-.words.origin .container {
-    display: inline;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 10px;
-    white-space: nowrap; /* Prevents wrapping within containers */
-}
-
-.word, .cloned-word {
-    background-color: rgb(20, 31, 35);
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    font-size: 1em;
-    cursor: pointer;
-    outline: 3px solid rgb(55, 70, 79);
-    border-radius: 8px;
-    margin-bottom: 25px;
-    transform: translateY(13px); /* Move down slightly */
-    margin-left: 10px;
-    transition: transform 0.3s ease-out;
-}
-
-.word:hover {
+#next-project-button {
     opacity: 0.7;
+    margin-bottom: 5px;
+    margin-top: 20px;
+    padding: 5px 15px;
+    background-color: #2a3b7b; /* Change to your preferred color */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 12px; /* Adjust the roundness here */
+    transition: background-color 0.3s;
 }
 
-.cloned-word {
-    position:relative;
-    top: 0;
-    left: 0;
-    opacity: 1;
+#next-project-button:hover {
+    color: rgb(255, 255, 255);
+    background-color: #3d8d4e; /* Change to your preferred hover color */
+}
+
+/* Styles for Translation Project */
+.translation-container {
+    /* Translation styles */
+}
+
+/* Additional specific styles as needed */
+
+/* Styles for Lyrics Project */
+.lyrics-container {
+    /* Lyrics styles */
+}
+
+.lyrics-displaymain {
+    margin-top: 20px;
+    font-size: 1.5em; 
+    line-height: 2; 
+    text-align: left;
+}
+
+.lyrics-line {
+    margin-bottom: 10px;
+}
+
+.lyrics-line.right {
+    text-align: right;
+}
+
+.lyrics-line span {
+    color: rgb(99, 96, 100);
+    display: inline;
+    transition: color 1s; /* Smooth transition for color change */
+}
+
+@keyframes colorChange {
+    0% { color: rgb(99, 96, 100); }
+    100% { color: rgb(221, 221, 222); }
+}
+
+@keyframes colorFadeBack {
+    0% { color: rgb(221, 221, 222); }
+    100% { color: rgb(99, 96, 100); }
 }
