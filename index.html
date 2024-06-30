@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Combined Projects</title>
+    <style>
+        /* CSS for Translation Project */
+        .translation-container {
+            /* Translation styles */
+        }
+        /* Additional specific styles as needed */
+        
+        /* CSS for Lyrics Project */
+        .lyrics-container {
+            /* Lyrics styles */
+        }
+        /* Additional specific styles as needed */
+    </style>
 </head>
 <body>
     <div class="container">
@@ -13,6 +25,307 @@
             <!-- Project content will be dynamically loaded here -->
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <!-- Translation Project Content -->
+    <div id="translation-project" style="display: none;">
+        <div class="translation-container">
+            <div class="header">
+                <div class="header-content">
+                    <img src="for.svg" alt="Icon" class="icon">
+                    <p>NEW WORD</p>
+                </div>
+            </div>
+            <div class="main-content">
+                <div class="instruction">
+                    Write this in English
+                </div>
+                <!-- Rest of translation content -->
+                <div class="words origin">
+                    <!-- Words will be dynamically added here -->
+                    <div class="words">
+                        <div class="destination">
+                            <!-- Destination area where selected words go -->
+                        </div>
+                        <div class="origin">
+                            <!-- Origin area where words initially start -->
+                            <div class="container">
+                                <button class="word">Marc</button>
+                            </div>
+                            <div class="container">
+                                <button class="word">horse</button>
+                            </div>
+                            <div class="container">
+                                <button class="word">speak</button>
+                            </div>
+                            <div class="container">
+                                <button class="word">woman</button>
+                            </div>
+                            <div class="container">
+                                <button class="word">I</button>
+                            </div>
+                            <div class="container">
+                                <button class="word">American</button>
+                            </div>
+                            <div class="container">
+                                <button class="word">An</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lyrics Project Content -->
+    <div id="lyrics-project" style="display: none;">
+        <div class="lyrics-container">
+            <button id="next-line-button">Next Line</button>
+            <div id="lyrics-displaymain" class="lyrics-displaymain">
+                <!-- Lyrics lines will be dynamically loaded here -->
+                <div class="lyrics-line">This is the first line</div>
+                <div class="lyrics-line right">And the second</div>
+                <div class="lyrics-line">Here's the third</div>
+                <div class="lyrics-line right">Four</div>
+                <div class="lyrics-line">5th line is right here</div>
+                <div class="lyrics-line right">Lastly, number six</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for Translation Project
+        document.addEventListener('DOMContentLoaded', () => {
+            const words = document.querySelectorAll('.word');
+            const inputLines = document.querySelectorAll('.input-line');
+            let originalPositions = {};
+
+            let isAnimating = false;
+
+            // FLIP technique animation (First Last Invert Play)
+            const flip = (word, settings) => {
+                const invert = {
+                    x: settings.first.left - settings.last.left,
+                    y: settings.first.top - settings.last.top
+                };
+
+                let animation = word.animate(
+                    [
+                        { transform: `scale(1, 1) translate(${invert.x}px, ${invert.y}px)` },
+                        { transform: `scale(1, 1) translate(0, 0)` }
+                    ],
+                    {
+                        duration: 300,
+                        easing: "ease"
+                    }
+                );
+
+                animation.onfinish = () => (isAnimating = false);
+            };
+
+            // Function to check and add a new line in .origin if necessary
+            const checkAddNewLine = () => {
+                const origin = document.querySelector('.origin');
+                const lines = origin.querySelectorAll('.container');
+
+                // Check if the last line has more than 5 words
+                if (lines.length === 0 || lines[lines.length - 1].children.length >= 5) {
+                    const newLine = document.createElement('div');
+                    newLine.classList.add('container');
+                    origin.appendChild(newLine);
+                }
+            };
+
+            // Save the original position of each word
+            const saveOriginalPositions = () => {
+                words.forEach(word => {
+                    const rect = word.getBoundingClientRect();
+                    originalPositions[word.innerText] = { top: rect.top, left: rect.left, container: word.closest('.container') };
+                });
+            };
+
+            // Move the word to the next available input line
+            const move = (word) => {
+                let currentLineIndex = 0;
+
+                // Find the next available input line
+                for (let i = 0; i < inputLines.length; i++) {
+                    if (inputLines[i].children.length < 7) {
+                        currentLineIndex = i;
+                        break;
+                    }
+                }
+
+                const currentLine = inputLines[currentLineIndex];
+
+                if (currentLine.children.length >= 7) {
+                    // Handle case when all lines are full (optional)
+                    return;
+                }
+
+                const id = Math.random().toString(36).substring(7);
+                const container = word.closest('.container');
+                let rect = word.getBoundingClientRect();
+                let first, last;
+
+                isAnimating = true;
+
+                container.dataset.id = id;
+                word.dataset.id = id;
+
+                container.style.height = `${word.offsetHeight}px`;
+                container.style.width = `${word.offsetWidth}px`;
+
+                first = { top: rect.top, left: rect.left };
+                currentLine.appendChild(word);
+                rect = word.getBoundingClientRect();
+                last = { top: rect.top, left: rect.left };
+
+                checkAddNewLine(); // Check and add new line if needed
+
+                flip(word, { first, last });
+            };
+
+            // Move the word back to its original container
+            const putback = (word) => {
+                const originalPosition = originalPositions[word.innerText];
+                const container = originalPosition.container;
+                const siblings = Array.from(inputLines).map(line => Array.from(line.children)).flat().filter(sib => sib !== word);
+
+                let rect = word.getBoundingClientRect();
+                let first, last;
+
+                isAnimating = true;
+
+                first = { top: rect.top, left: rect.left };
+
+                siblings.forEach((sib) => {
+                    let rect = sib.getBoundingClientRect();
+                    sib.__first = { top: rect.top, left: rect.left };
+                });
+
+                container.appendChild(word);
+                rect = word.getBoundingClientRect();
+                last = { top: originalPosition.top, left: originalPosition.left }; // Use the original position for the last position
+
+                siblings.forEach((sib) => {
+                    let rect = sib.getBoundingClientRect();
+                    sib.__last = { top: rect.top, left: rect.left };
+                });
+
+                flip(word, { first, last });
+
+                siblings.forEach((sib) => flip(sib, { first: sib.__first, last: sib.__last }));
+
+                container.style.height = "";
+                container.style.width = "";
+                container.removeAttribute("data-id");
+                word.removeAttribute("data-id");
+
+                checkAddNewLine(); // Check and add new line if needed
+            };
+
+            words.forEach((word) => {
+                word.addEventListener("click", () => {
+                    if (isAnimating) return;
+                    if (word.closest(".input-line")) {
+                        putback(word);
+                    } else {
+                        move(word);
+                    }
+                });
+            });
+
+            // Save the original positions of the words when the page loads
+            saveOriginalPositions();
+        });
+    </script>
+
+    <script>
+        // JavaScript for Lyrics Project
+        document.addEventListener('DOMContentLoaded', () => {
+            const lyricsDisplay = document.getElementById('lyrics-displaymain');
+            const lines = [
+                'This is the first line',
+                'And the second',
+                'Here\'s the third',
+                'Four',
+                '5th line is right here',
+                'Lastly, number six'
+            ];
+            let currentLineIndex = 0;
+
+            displayLyrics();
+
+            function displayLyrics() {
+                lyricsDisplay.innerHTML = '';
+
+                lines.forEach((line, index) => {
+                    const lineElement = document.createElement('div');
+                    lineElement.classList.add('lyrics-line');
+
+                    if (index % 2 === 1) {
+                        lineElement.classList.add('right');
+                    }
+
+                    for (let i = 0; i < line.length; i++) {
+                        const span = document.createElement('span');
+                        span.textContent = line[i];
+                        lineElement.appendChild(span);
+                    }
+
+                    lyricsDisplay.appendChild(lineElement);
+                });
+
+                highlightCurrentLine();
+            }
+
+            const nextLineButton = document.getElementById('next-line-button');
+            nextLineButton.addEventListener('click', () => {
+                if (currentLineIndex < lines.length) {
+                    animateCurrentLine();
+                    currentLineIndex++;
+                } else {
+                    currentLineIndex = 0;
+                    animateCurrentLine();
+                }
+            });
+
+            function animateCurrentLine() {
+                const lineElements = lyricsDisplay.querySelectorAll('.lyrics-line');
+
+                if (currentLineIndex > 0) {
+                    const prevLineElement = lineElements[currentLineIndex - 1];
+                    const prevSpans = prevLineElement.querySelectorAll('span');
+                    prevSpans.forEach(span => {
+                        span.style.animation = `colorFadeBack 1s forwards`;
+                    });
+                } else if (currentLineIndex === 0 && lineElements.length > 0) {
+                    const lastLineElement = lineElements[lineElements.length - 1];
+                    const lastSpans = lastLineElement.querySelectorAll('span');
+                    lastSpans.forEach(span => {
+                        span.style.animation = `colorFadeBack 1s forwards`;
+                    });
+                }
+
+                const currentLineElement = lineElements[currentLineIndex];
+                const spans = currentLineElement.querySelectorAll('span');
+
+                spans.forEach((span, index) => {
+                    span.style.animation = `colorChange 1s ${index * 0.05}s forwards`;
+                });
+            }
+
+            function highlightCurrentLine() {
+                const lineElements = lyricsDisplay.querySelectorAll('.lyrics-line');
+                lineElements.forEach((lineElement, index) => {
+                    if (index === currentLineIndex) {
+                        lineElement.style.color = 'rgb(221, 221, 222)';
+                    } else {
+                        lineElement.style.color = 'rgb(99, 96, 100)';
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
