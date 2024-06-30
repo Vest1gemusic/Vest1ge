@@ -1,80 +1,135 @@
-/* Reset styles */
-* {
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
     font-family: 'DIN Next', sans-serif;
-    line-height: 1.6;
-    background-color: #f0f0f0;
-    color: #333;
-}
-
-header {
-    background-color: #00796b;
+    background-color: rgb(20, 31, 35);
     color: #fff;
-    padding: 10px 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    height: 100vh;
 }
 
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-left: 20px;
+.container {
+    width: 100%;
+    max-width: 450px;
 }
 
-nav ul {
-    list-style-type: none;
+.header {
     display: flex;
-}
-
-nav ul li {
-    margin: 0 10px;
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    padding: 10px;
-    transition: all 0.3s ease;
-}
-
-nav ul li a:hover {
-    background-color: #004d40;
-}
-
-.main {
+    align-items: center;
+    justify-content: left;
+    margin-bottom: -50px;
     padding: 20px;
 }
 
-.hero {
-    background-image: url('background.jpg');
-    background-size: cover;
-    color: #fff;
-    text-align: center;
-    padding: 100px 0;
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
-.hero-content {
-    max-width: 800px;
-    margin: 0 auto;
+.header p {
+    margin: 0;
+    margin-bottom: -10px;
+    font-size: 1em; /* Adjust the font size as needed */
+    font-family: 'DIN Next', sans-serif; /* Adjust the font family */
+    color: #be48e4;
 }
 
-.featured, .events, .contact {
+.main-content {
     padding: 20px;
+}
+
+.instruction {
+    font-size: 1.7em;
+    font-family: 'DIN Next', sans-serif; /* Adjust the font family */
+    font-weight: bold; /* Adjust the font weight */
+    text-align: left;
+    margin-top: 20px; /* Adjust as needed */
+}
+
+.question {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 20px 0;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.footer {
-    text-align: center;
+.spanish-text {
+    font-size: 1.2em;
+    display: inline-block;
+    outline: 3px solid rgb(55, 70, 79);
     padding: 10px;
-    background-color: #00796b;
+    border-radius: 8px;
+    max-width: 100%;
+}
+
+.spanish-text .highlight {
+    color: #be48e4;
+    text-decoration: underline;
+}
+
+.audio-icon {
+    width: 25px;
+    height: auto;
+    margin-right: 5px;
+    filter: invert(29%) sepia(83%) saturate(6232%) hue-rotate(180deg) brightness(130%) contrast(105%);
+}
+
+.input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    margin: 45px 0;
+}
+
+.input-line {
+    position: relative;
+    height: 2px;
+    background-color: #4f5863;
+    width: 100%;
+    margin: 1px auto; /* Adjusted margin for spacing */
+}
+
+.words.origin {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.words.origin .container {
+    display: inline;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    white-space: nowrap; /* Prevents wrapping within containers */
+}
+
+.word, .cloned-word {
+    background-color: rgb(20, 31, 35);
     color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    outline: 3px solid rgb(55, 70, 79);
+    border-radius: 8px;
+    margin-bottom: 25px;
+    transform: translateY(13px); /* Move down slightly */
+    margin-left: 10px;
+    transition: transform 0.3s ease-out;
+}
+
+.word:hover {
+    opacity: 0.7;
+}
+
+.cloned-word {
+    position:relative;
+    top: 0;
+    left: 0;
+    opacity: 1;
 }
