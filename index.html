@@ -3,84 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Combined Projects</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Custom Icons Example</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+        :root {
+            --font-family: 'JetBrains Mono', monospace;
+            --main-color: #000000;
+            --hover-color: #303c45;
+        }
+        * {
+            font-family: var(--font-family);
+            box-sizing: border-box;
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--main-color);
+            color: #ecf0f1;
+        }
+        header {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            background-color: var(--main-color);
+            border-bottom: 2px solid var(--hover-color);
+        }
+        a {
+            display: inline-block;
+            margin: 0 auto;
+            text-decoration: none;
+            color: #ecf0f1;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: 2px solid var(--hover-color);
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        a:hover {
+            background-color: var(--hover-color);
+            color: #ecf0f1;
+        }
+        .icon-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        .icon {
+            position: absolute;
+            width: 90px;
+            margin: 10px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .icon:hover {
+            transform: scale(1.1);
+        }
+        .icon__image {
+            width: 100%;
+            height: auto;
+            image-rendering: pixelated;
+        }
+        .icon__text {
+            margin: 5px 0 0;
+            font-size: 12px;
+            text-align: center;
+            color: rgb(255, 255,255)
+        }
+        .icon--album .icon__image {
+            border-radius: 10px;
+        }
+        .icon--grey .icon__image {
+            border-radius: 20px;
+        }
+        .icon--folder .icon__image{
+            width: 60px;
+            filter: invert(100%);
+            height: auto;
+            justify-content: center;
+        }
+        .icon--black .icon__image{
+            border-radius: 10px;
+        }
+        .icon--silly .icon__image{
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <button id="next-project-button">Next Project</button>
-        <div id="project-display" class="project-display">
-            <!-- Project content will be dynamically loaded here -->
-        </div>
+    <header>
+        <a href="#">discography →</a>
+    </header>
+    <div class="icon-container">
+        
+        <button draggable="false" class="icon icon--grey" onclick="navigateTo('alone.html');">
+            <img class="icon__image" draggable="false" src="images/custom-icon1.jpeg" alt="Custom Icon 1">
+            <p class="icon__text">alone</p>
+            
+        </button>
+        <button draggable="false" class="icon icon--folder" onclick="navigateTo('pain.html');">
+            <img class="icon__image" draggable="false" src="" alt="">
+            <p class="icon__text">pain</p>
+        </button>
+        <button draggable="false" class="icon icon--black" onclick="navigateTo('sleep.html');">
+            <img class="icon__image" draggable="false" src="images/custom-icon3.png" alt="Custom Icon 3">
+            <p class="icon__text">sleep.</p>
+        </button>
+        <button draggable="false" class="icon icon--silly" onclick="navigateTo('aboutme.html');">
+            <img class="icon__image" draggable="false" src="images/custom-icon4.png" alt="Custom Icon 4">
+            <p class="icon__text">about me.</p>
+        </button>
     </div>
+    <script>
+        let isDragging = false;
 
-    <!-- Translation Project Content -->
-    <div id="translation-project" style="display: none;">
-        <div class="translation-container">
-            <div class="header">
-                <div class="header-content">
-                    <img src="for.svg" alt="Icon" class="icon">
-                    <p>NEW WORD</p>
-                </div>
-            </div>
-            <div class="main-content">
-                <div class="instruction">
-                    Write this in English
-                </div>
-                <!-- Rest of translation content -->
-                <div class="words origin">
-                    <!-- Words will be dynamically added here -->
-                    <div class="words">
-                        <div class="destination">
-                            <!-- Destination area where selected words go -->
-                        </div>
-                        <div class="origin">
-                            <!-- Origin area where words initially start -->
-                            <div class="container">
-                                <button class="word">Marc</button>
-                            </div>
-                            <div class="container">
-                                <button class="word">horse</button>
-                            </div>
-                            <div class="container">
-                                <button class="word">speak</button>
-                            </div>
-                            <div class="container">
-                                <button class="word">woman</button>
-                            </div>
-                            <div class="container">
-                                <button class="word">I</button>
-                            </div>
-                            <div class="container">
-                                <button class="word">American</button>
-                            </div>
-                            <div class="container">
-                                <button class="word">An</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        function navigateTo(url) {
+            if (!isDragging) {
+                window.location.href = url;
+            }
+        }
 
-    <!-- Lyrics Project Content -->
-    <div id="lyrics-project" style="display: none;">
-        <div class="lyrics-container">
-            <button id="next-line-button">Next Line</button>
-            <div id="lyrics-displaymain" class="lyrics-displaymain">
-                <!-- Lyrics lines will be dynamically loaded here -->
-                <div class="lyrics-line">This is the first line</div>
-                <div class="lyrics-line right">And the second</div>
-                <div class="lyrics-line">Here's the third</div>
-                <div class="lyrics-line right">Four</div>
-                <div class="lyrics-line">5th line is right here</div>
-                <div class="lyrics-line right">Lastly, number six</div>
-            </div>
-        </div>
-    </div>
+        const icons = document.querySelectorAll('.icon');
+        icons.forEach(icon => {
+            icon.addEventListener('mousedown', event => {
+                isDragging = false; // Reset flag on mousedown
+                const iconRect = icon.getBoundingClientRect();
+                const offsetX = event.clientX - iconRect.left;
+                const offsetY = event.clientY - iconRect.top;
 
-    <script src="translation.js"></script>
-    <script src="lyrics.js"></script>
+                icon.style.position = 'absolute';
+                icon.style.left = iconRect.left + 'px';
+                icon.style.top = iconRect.top + 'px';
+                icon.style.zIndex = 1000;
+
+                function moveIcon(event) {
+                    isDragging = true; // Set flag on mousemove
+                    icon.style.left = event.clientX - offsetX + 'px';
+                    icon.style.top = event.clientY - offsetY + 'px';
+                }
+
+                function stopMoving() {
+                    document.removeEventListener('mousemove', moveIcon);
+                    document.removeEventListener('mouseup', stopMoving);
+                }
+
+                document.addEventListener('mousemove', moveIcon);
+                document.addEventListener('mouseup', stopMoving);
+            });
+        });
+    </script>
 </body>
 </html>
