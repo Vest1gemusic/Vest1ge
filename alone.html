@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Icon 1 Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+        :root {
+            background-color: #000000;
+            --font-family: 'JetBrains Mono', monospace;
+            --main-color: #ffffff;
+            --hover-color: #ffffff;
+        }
+        * {
+            font-family: var(--font-family);
+            box-sizing: border-box;
+        }
+        body {
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #000000;
+            padding: 20px;
+        }
+        h1 {
+            color: #ffffff;
+        }
+        p {
+            color: #5a5a5a; /* Default color */
+            line-height: 1.1;
+            font-size: 12px;
+            transition: color 0.3s ease; /* Smooth transition for color */
+        }
+        .color-change {
+            color: #ff0000; /* New color */
+        }
+        a {
+            color: #ffffff;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p id="textElement">nova</p>
+        <a href="index.html">out</a>
+    </div>
+
+    <script>
+        const textElement = document.getElementById('textElement');
+
+        // Function to automatically change text color
+        function autoChangeColor() {
+            // Toggle color change by toggling the class
+            textElement.classList.toggle('color-change');
+
+            // Schedule the next color change after a delay (e.g., 2 seconds)
+            setTimeout(autoChangeColor, 2000); // Change color every 2 seconds (2000 milliseconds)
+        }
+
+        // Start the automatic color change process
+        autoChangeColor();
+    </script>
+</body>
+</html>
